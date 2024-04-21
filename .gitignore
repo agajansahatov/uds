@@ -39,5 +39,9 @@ logs/
 # Windows specific files
 Thumbs.db
 
-# Simulated environment files
+# Udacity simulator
 term1-simulator-windows/
+
+# Udacity Simulator generated data
+data-lake/
+data-mountain/
