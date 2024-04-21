@@ -1,0 +1,43 @@
+# Python specific
+__pycache__/
+*.pyc
+
+# IDE specific
+.idea/
+.vscode/
+*.iml
+
+# Compiled files
+*.pyo
+*.pyd
+*.exe
+*.dll
+*.so
+*.dylib
+
+# Environment specific
+venv/
+.venv/
+env/
+lib/
+site-packages/
+dist/
+build/
+*.egg-info/
+
+# Data and logs
+data/
+logs/
+
+
+# Backup files
+*~
+
+# macOS specific files
+.DS_Store
+
+# Windows specific files
+Thumbs.db
+
+# Simulated environment files
+term1-simulator-windows/
