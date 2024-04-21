@@ -1,27 +1,19 @@
-# This is a sample Python script.
+import cv2
+from src.components.image_preprocessor import ImagePreprocessor
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
-
-
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
-
-
-# Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    # Read the contents of the requirements.txt file
-    with open('requirements.txt') as f:
-        requirements = f.read().splitlines()
+    center = 'data-lake/IMG/center_2024_04_21_20_47_26_490.jpg'
+    left = 'data-lake/IMG/left_2024_04_21_20_47_26_490.jpg'
+    right = 'data-lake/IMG/right_2024_04_21_20_47_26_490.jpg'
+    steering_angle = 0.0
 
-    # Extract the package names and versions
-    dependencies = [req.split('==') for req in requirements]
+    preprocessor = ImagePreprocessor()
+    image, steering_angle = preprocessor.choose_image(center, left, right, steering_angle)
+    image, steering_angle = preprocessor.flip_image(image, steering_angle)
+    image, steering_angle = preprocessor.translate_image(image, steering_angle)
+    image = preprocessor.normalize_image(image)
 
-    # Generate the install_requires list with version numbers
-    install_requires = [f"{dependency[0]}=={dependency[1]}" for dependency in dependencies]
-
-    # Print the install_requires list
-    print(install_requires)
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+    print(steering_angle)
+    cv2.imshow('image_data', image)
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
