@@ -2,9 +2,9 @@ import cv2
 from src.components.image_preprocessor import ImagePreprocessor
 
 if __name__ == '__main__':
-    center = 'data-lake/IMG/center_2024_04_21_20_47_26_490.jpg'
-    left = 'data-lake/IMG/left_2024_04_21_20_47_26_490.jpg'
-    right = 'data-lake/IMG/right_2024_04_21_20_47_26_490.jpg'
+    center = 'test/center.jpg'
+    left = 'test/left.jpg'
+    right = 'test/right.jpg'
     steering_angle = 0.0
 
     preprocessor = ImagePreprocessor()
