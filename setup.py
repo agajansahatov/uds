@@ -1,5 +1,5 @@
 import os
-from setuptools import setup
+from setuptools import setup, find_packages
 import requests
 import zipfile
 
@@ -38,12 +38,25 @@ install_simulator()
 # Define package metadata and dependencies
 setup(
     name='uds',
-    version='1.0.0',
-    packages=[''],
+    version='v1.0.0',
+    packages=find_packages(),
     url='https://github.com/agajansahatov/uds',
     license='',
     author='Adam',
     author_email='agajansahatov@icloud.com',
     description='Udacity Driverless System based on Deep Learning',
-    install_requires=requirements
+    install_requires=[
+        'keras==2.3.1',
+        'tensorflow==2.3.0',
+        'scikit-learn==0.22',
+        'python-socketio==4.6.0',
+        'Flask-SocketIO==4.3.1',
+        'python-engineio==3.13.0',
+        'opencv-python==4.4.0.42',
+        'protobuf==3.19.0',
+        'pillow',
+        'pandas',
+        'eventlet',
+        'flask'
+    ],
 )
