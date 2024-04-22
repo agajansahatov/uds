@@ -1,19 +1,23 @@
-import cv2
-from src.components.image_preprocessor import ImagePreprocessor
+from src.components.model_builder import ModelBuilder
 
 if __name__ == '__main__':
-    center = 'test/center.jpg'
-    left = 'test/left.jpg'
-    right = 'test/right.jpg'
-    steering_angle = 0.0
+    # Set input shape
+    input_shape = (66, 200, 3)
 
-    preprocessor = ImagePreprocessor()
-    image, steering_angle = preprocessor.choose_image(center, left, right, steering_angle)
-    image, steering_angle = preprocessor.flip_image(image, steering_angle)
-    image, steering_angle = preprocessor.translate_image(image, steering_angle)
-    image = preprocessor.normalize_image(image)
+    # Instantiate ModelBuilder
+    model_builder = ModelBuilder(input_shape)
 
-    print(steering_angle)
-    cv2.imshow('image_data', image)
-    cv2.waitKey(0)
-    cv2.destroyAllWindows()
+    # Build models
+    model1 = model_builder.build_model(1)
+    model2 = model_builder.build_model(2)
+    model3 = model_builder.build_model(3)
+
+    # Print model summaries
+    print("Model 1 Summary:")
+    model1.summary()
+
+    print("\nModel 2 Summary:")
+    model2.summary()
+
+    print("\nModel 3 Summary:")
+    model3.summary()
