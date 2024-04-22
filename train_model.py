@@ -8,7 +8,7 @@ import numpy as np
 import pandas as pd #读写cvs文件
 from sklearn.model_selection import train_test_split #机器学习的工具集，将数据区分为训练集和测试集
 from tensorflow.keras.optimizers import Adam
-from tensorflow.keras.callbacks import ModelCheckpoint,EarlyStopping,TensorBoard
+from tensorflow.keras import ModelCheckpoint, EarlyStopping, TensorBoard
 from preprocessing import image_height,image_width,image_channels
 from preprocessing import image_preprocessing,image_normalized
 from build_model import build_model1,build_model2,build_model3

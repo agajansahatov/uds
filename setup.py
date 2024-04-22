@@ -3,11 +3,6 @@ from setuptools import setup, find_packages
 import requests
 import zipfile
 
-# Read the contents of the requirements.txt file
-with open('requirements.txt') as f:
-    requirements = f.read().splitlines()
-
-
 # Function to download and extract the simulator
 def install_simulator():
     simulator_url = "https://s3-us-west-1.amazonaws.com/udacity-selfdrivingcar/Term1-Sim/term1-simulator-windows.zip"
