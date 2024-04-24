@@ -3,6 +3,7 @@ from setuptools import setup, find_packages
 import requests
 import zipfile
 
+
 # Function to download and extract the simulator
 def install_simulator():
     simulator_url = "https://s3-us-west-1.amazonaws.com/udacity-selfdrivingcar/Term1-Sim/term1-simulator-windows.zip"
@@ -41,12 +42,12 @@ setup(
     author_email='agajansahatov@icloud.com',
     description='Udacity Driverless System based on Deep Learning',
     install_requires=[
-        'keras==2.3.1',
-        'tensorflow==2.3.0',
-        'scikit-learn==0.22',
+        'keras==2.6',
+        'tensorflow==2.6',
+        'scikit-learn',
         'python-socketio==4.6.0',
         'Flask-SocketIO==4.3.1',
-        'python-engineio==3.13.0',
+        'python-engineio==3.13.2',
         'opencv-python==4.4.0.42',
         'protobuf==3.19.0',
         'pillow',
