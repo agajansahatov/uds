@@ -5,5 +5,5 @@ from src.model_builder import ModelBuilder
 from src.model_trainer import ModelTrainer
 
 if __name__ == "__main__":
-    auto_driver = AutoDriver('xinglina_lake_model2.h5')
-    auto_driver.run()
+    auto_driver = AutoDriver('models/agajan_lake_model.h5')
+    auto_driver.run(15)
