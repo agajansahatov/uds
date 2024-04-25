@@ -18,7 +18,8 @@ import numpy as np
 
 #    (3)模型相关类
 from tensorflow.keras.models import load_model
-from preprocessing_2 import image_normalized
+# from preprocessing_2 import image_normalized
+from src.preprocessor import Preprocessor
 model=load_model('xinglina_lake_model2.h5')
 # 2、初始化变量及函数
 class SimplePIControl:
@@ -78,7 +79,8 @@ def on_telemetry(sid, data):
         cv2.waitKey(1)
         #print(image)
         #throttle=1.0-steering_angle**2-(speed/set_speed)**2
-        image=image_normalized(image)
+        preprocessor = Preprocessor()
+        image=preprocessor.normalize_image(image)
         steering_angle=float(model.predict(np.array([image])))
         throttle=controller.updated(speed)
         send_control(steering_angle,throttle)

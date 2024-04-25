@@ -56,11 +56,11 @@ class Preprocessor:
 
 
 #Usage
-if __name__ == '__main__':
-    preprocessor = Preprocessor()
-    image, steering_angle = preprocessor.preprocess_image("../test/center.jpg", '../test/left.jpg', '../test/right.jpg', 0.0)
-    image = preprocessor.normalize_image(image)
-    cv2.imshow('image_data', image)
-    cv2.waitKey(0)
-    print(steering_angle)
-    cv2.destroyAllWindows()
+# if __name__ == '__main__':
+#     preprocessor = Preprocessor()
+#     image, steering_angle = preprocessor.preprocess_image("../test/center.jpg", '../test/left.jpg', '../test/right.jpg', 0.0)
+#     image = preprocessor.normalize_image(image)
+#     cv2.imshow('image_data', image)
+#     cv2.waitKey(0)
+#     print(steering_angle)
+#     cv2.destroyAllWindows()

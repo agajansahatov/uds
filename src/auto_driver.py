@@ -9,20 +9,15 @@ import numpy as np
 from tensorflow.keras.models import load_model
 from src.preprocessor import Preprocessor
 from src.pi_controller import PIController
-import logging
-
-logging.basicConfig(level=logging.INFO)
 
 
 class AutoDriver:
-    def __init__(self, model_path='models/agajan_lake_model.h5', speed=15, steering_angle=-0.02, throttle=0.3):
+    def __init__(self, model_path, speed=15, steering_angle=-0.02, throttle=0.3):
         self.model = load_model(model_path)
-        self.preprocessor = Preprocessor()
         self.pi_controller = PIController(0.1, 0.002)
-        self.speed = speed
-        self.steering_angle = steering_angle
-        self.throttle = throttle
+        # Create network connection
         self.sio = socketio.Server()
+        self.app = socketio.WSGIApp(self.sio, Flask(__name__))
 
     def send_control(self, steering_angle, throttle):
         self.sio.emit('steer', data={
@@ -30,47 +25,42 @@ class AutoDriver:
             'throttle': throttle.__str__()
         })
 
-    def process_image(self, image_data):
-        image_bytes = base64.b64decode(image_data)
-        image_array = np.frombuffer(image_bytes, np.uint8)
-        image = cv2.imdecode(image_array, cv2.IMREAD_COLOR)
-        image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-        cv2.imshow('Image from Udacity Simulator', image)
-        cv2.waitKey(1)
-        return self.preprocessor.normalize_image(image)
-
-    def handle_telemetry(self, sid, data):
-        if data:
-            speed = float(data['speed'])
-            image = self.process_image(data['image'])
-            steering_angle = float(self.model.predict(np.array([image])))
-            throttle = self.pi_controller.updated(speed)
-            self.send_control(steering_angle, throttle)
-        else:
-            self.sio.emit('manual', data={})
 
     def run(self):
-        # Create network connection
-        app = Flask(__name__)
-        app = socketio.WSGIApp(self.sio, app)
-
         # Pass parameters to control car driving
         @self.sio.on('connect')
         def on_connect(sid, environ):
-            logging.info('Successfully connected to the emulator！')
+            print('Successfully connected to the simulator！')
 
         @self.sio.on('telemetry')
         def on_telemetry(sid, data):
-            self.handle_telemetry(sid, data)
+            if data:
+                # print('收到信息',data)
+                speed = float(data['speed'])
+                # print('speed', speed)
+                image = Image.open(BytesIO(base64.b64decode(data['image'])))
+                image = np.array(image)
+                image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+                cv2.imshow('Image from Udacity Simulator', image)
+                cv2.waitKey(1)
+                # print(image)
+                # throttle=1.0-steering_angle**2-(speed/set_speed)**2
+                preprocessor = Preprocessor()
+                image = preprocessor.normalize_image(image)
+                steering_angle = float(self.model.predict(np.array([image])))
+                throttle = self.pi_controller.updated(speed)
+                self.send_control(steering_angle, throttle)
+            else:
+                self.sio.emit('manual', data={})
 
         @self.sio.on('disconnect')
         def on_disconnect(sid):
-            logging.info('Disconnected from emulator')
+            print('Disconnected from simulator')
 
         # Start running
-        eventlet.wsgi.server(eventlet.listen(('', 4567)), app)
+        eventlet.wsgi.server(eventlet.listen(('', 4567)), self.app)
 
 
 if __name__ == "__main__":
-    auto_driver = AutoDriver('../models/agajan_lake_model.h5')
+    auto_driver = AutoDriver('../xinglina_lake_model2.h5')
     auto_driver.run()

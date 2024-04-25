@@ -9,3 +9,4 @@ scikit-learn~=0.22
 keras~=2.6.0
 requests~=2.31.0
 setuptools~=68.0.0
+socketio

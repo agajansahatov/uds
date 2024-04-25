@@ -1,7 +1,7 @@
 class PIController:
-    def __init__(self, kp, ki):
-        self.KP = kp
-        self.KI = ki
+    def __init__(self, KP, KI):
+        self.KP = KP
+        self.KI = KI
         self.error = 0.0
         self.set_point = 0.0
         self.integral = 0.0

@@ -42,8 +42,8 @@ setup(
     author_email='agajansahatov@icloud.com',
     description='Udacity Driverless System based on Deep Learning',
     install_requires=[
-        'keras==2.6',
-        'tensorflow==2.6',
+        'keras==2.6.0',
+        'tensorflow==2.6.0',
         'scikit-learn',
         'python-socketio==4.6.0',
         'Flask-SocketIO==4.3.1',

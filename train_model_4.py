@@ -13,7 +13,7 @@ from preprocessing_2 import image_height,image_width,image_channels
 from preprocessing_2 import image_preprocessing,image_normalized
 from build_model_3 import build_model1,build_model2,build_model3
 #2、设置初始化变量
-data_path='../data-lake/'
+data_path='data-lake/'
 test_ration=0.1 #90%训练集，10%测试集
 batch_size=100 #一组数据，数据量100
 batch_num=200 #训练1轮，需要200组数据，实际训练量100x200
@@ -88,4 +88,4 @@ model.fit(
 )
 
 # 6、保存模型
-model.save('xinglina_lake_model2.h5')
+model.save('agajan_lake_model.h5')
