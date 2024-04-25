@@ -8,6 +8,9 @@ class Preprocessor:
         self.image_width = image_width
         self.image_channels = image_channels
 
+    def get_image_info(self):
+        return self.image_height, self.image_width, self.image_channels
+
     def choose_image(self, center, left, right, steering_angle):
         choice = np.random.choice(3)
         if choice == 0:
@@ -44,7 +47,7 @@ class Preprocessor:
         image = cv2.cvtColor(image, cv2.COLOR_RGB2YUV)
         return image
 
-    def process_image(self, center, left, right, steering_angle):
+    def preprocess_image(self, center, left, right, steering_angle):
         image, steering_angle = self.choose_image(center, left, right, steering_angle)  # 调用图像选择
         image, steering_angle = self.flip_image(image, steering_angle)
         image, steering_angle = self.translate_image(image, steering_angle)
@@ -52,9 +55,10 @@ class Preprocessor:
         return image, steering_angle
 
 
+#Usage
 if __name__ == '__main__':
     preprocessor = Preprocessor()
-    image, steering_angle = preprocessor.process_image("../test/center.jpg", '../test/left.jpg', '../test/right.jpg', 0.0)
+    image, steering_angle = preprocessor.preprocess_image("../test/center.jpg", '../test/left.jpg', '../test/right.jpg', 0.0)
     image = preprocessor.normalize_image(image)
     cv2.imshow('image_data', image)
     cv2.waitKey(0)
