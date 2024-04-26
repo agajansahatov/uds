@@ -9,6 +9,7 @@ import numpy as np
 from tensorflow.keras.models import load_model
 from src.preprocessor import Preprocessor
 from src.pi_controller import PIController
+from src.config import *
 
 
 class AutoDriver:
@@ -41,7 +42,7 @@ class AutoDriver:
                 image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
                 cv2.imshow('Image from Udacity Simulator', image)
                 cv2.waitKey(1)
-                preprocessor = Preprocessor()
+                preprocessor = Preprocessor(IMAGE_HEIGHT, IMAGE_WIDTH, IMAGE_CHANNELS)
                 image = preprocessor.normalize_image(image)
                 steering_angle = float(self.model.predict(np.array([image])))
                 throttle = self.pi_controller.updated(telemetry_speed)

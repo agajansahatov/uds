@@ -3,6 +3,32 @@ from setuptools import setup, find_packages
 import requests
 import zipfile
 
+# Define package metadata and dependencies
+setup(
+    name='uds',
+    version='v1.0.0',
+    packages=find_packages(),
+    url='https://github.com/agajansahatov/uds',
+    license='',
+    author='Adam',
+    author_email='agajansahatov@icloud.com',
+    description='Udacity Driverless System based on Deep Learning',
+    install_requires=[
+        'keras==2.6.0',
+        'tensorflow==2.6.0',
+        'scikit-learn',
+        'python-socketio==4.6.0',
+        'Flask-SocketIO==4.3.1',
+        'python-engineio==3.13.2',
+        'opencv-python==4.4.0.42',
+        'protobuf==3.19.0',
+        'pillow',
+        'pandas',
+        'eventlet',
+        'flask'
+    ],
+)
+
 
 # Function to download and extract the simulator
 def install_simulator():
@@ -30,29 +56,3 @@ def install_simulator():
 
 # Call the install_simulator function
 install_simulator()
-
-# Define package metadata and dependencies
-setup(
-    name='uds',
-    version='v1.0.0',
-    packages=find_packages(),
-    url='https://github.com/agajansahatov/uds',
-    license='',
-    author='Adam',
-    author_email='agajansahatov@icloud.com',
-    description='Udacity Driverless System based on Deep Learning',
-    install_requires=[
-        'keras==2.6.0',
-        'tensorflow==2.6.0',
-        'scikit-learn',
-        'python-socketio==4.6.0',
-        'Flask-SocketIO==4.3.1',
-        'python-engineio==3.13.2',
-        'opencv-python==4.4.0.42',
-        'protobuf==3.19.0',
-        'pillow',
-        'pandas',
-        'eventlet',
-        'flask'
-    ],
-)

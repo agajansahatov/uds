@@ -28,7 +28,10 @@ build/
 # Data and logs
 data/
 logs/
-
+models/
+src/logs/
+data-lake/
+data-mountain/
 
 # Backup files
 *~
@@ -41,7 +44,3 @@ Thumbs.db
 
 # Udacity simulator
 term1-simulator-windows/
-
-# Udacity Simulator generated data
-data-lake/
-data-mountain/

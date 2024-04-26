@@ -1,23 +1,33 @@
-'''太原理工大学无人驾驶项目
-基于深度学习的Udacity无人驾驶系统
-组号：      学号：     姓名：
-完成工作：训练卷积神经网络模型，保存自动驾驶模型'''
-#1、导入第三方库
+'''
+太原理工大学现代科技学院（毕业）实习（实训）课程
+项目一 基于深度学习的 Udacity 无人驾驶系统
+组号：
+学号：              姓名：
+'''
+#完成工作：训练卷积神经网络模型
+# 1、导入第三方库
 import cv2
 import numpy as np
-import pandas as pd #读写cvs文件
-from sklearn.model_selection import train_test_split #机器学习的工具集，将数据区分为训练集和测试集
+import pandas as pd
+from sklearn.model_selection import train_test_split
+
+'''
+Sklearn (全称 Scikit-Learn) 是基于 Python 语言的机器学习工具。把机器学习中的常用模块如分类、回归、聚类、降维、
+模型选择和预处理等， 做成API ，使用简单，很适合新手上路。常与NumPy, Pandas 和 Matplotlib 一同使用。
+'''
+
 from tensorflow.keras.optimizers import Adam
-from tensorflow.keras.callbacks import ModelCheckpoint,EarlyStopping,TensorBoard
-from preprocessing_2 import image_height,image_width,image_channels
-from preprocessing_2 import image_preprocessing,image_normalized
-from build_model_3 import build_model1,build_model2,build_model3
-#2、设置初始化变量
-data_path='data-lake/'
-test_ration=0.1 #90%训练集，10%测试集
-batch_size=100 #一组数据，数据量100
-batch_num=200 #训练1轮，需要200组数据，实际训练量100x200
-epoch=50 #训练50轮，实际训练量100x200x50=100万
+from tensorflow.keras.callbacks import ModelCheckpoint, EarlyStopping, TensorBoard
+from Preprocessing_2 import image_height, image_width, image_channels
+from Preprocessing_2 import image_preprocessing, image_normalized
+from Build_model_3 import build_model1,build_model2,build_model3
+
+# 2、初始化变量
+data_path = 'data-lake/'
+test_ration = 0.1
+batch_size = 100
+batch_num = 200
+epoch = 50
 
 # 3、导入数据
 def load_data(data_path):
@@ -33,7 +43,7 @@ def load_data(data_path):
     # print(X_train,X_test,Y_train,Y_test)
     return X_train,X_test,Y_train,Y_test
 # 4、创建数据生成器（喂料机）
-def batch_generator(data_path,batch_size,X_data,Y_data,train_flag):#flag标志位，1训练，0测试
+def batch_generator(data_path,batch_size,X_data,Y_data,train_flag):
     image_container=np.empty([batch_size,image_height, image_width, image_channels])#定义容器，盛放数据
     steer_container=np.empty(batch_size)
     while True:
@@ -41,12 +51,12 @@ def batch_generator(data_path,batch_size,X_data,Y_data,train_flag):#flag标志�
         for index in np.random.permutation(X_data.shape[0]):#range(),np.random.choice()不同
             center,left,right=data_path+X_data[index]
             steering_angle=Y_data[index]
-            if train_flag and np.random.rand()<0.4: #取40%的训练数据进行图像处理
+            if train_flag and np.random.rand()<0.4:
                 image,steering_angle=image_preprocessing(center,left,right,steering_angle)
-            else: #剩余60%的训练数据和测试数据，直接读取中间图像
+            else:
                 image=cv2.imread(center)
-            image_container[ii]=image_normalized(image) #将图像归一化后放入容器
-            steer_container[ii]=steering_angle#将方向角放入容器中
+            image_container[ii]=image_normalized(image)
+            steer_container[ii]=steering_angle
             ii+=1
             if ii==batch_size:
                 break
@@ -56,7 +66,7 @@ def batch_generator(data_path,batch_size,X_data,Y_data,train_flag):#flag标志�
 X_train,X_test,Y_train,Y_test=load_data(data_path)
 model=build_model2()
 checkpoint = ModelCheckpoint(
-    'xinglina_lake_model2_{epoch:03d}.h5',
+    'models/xinglina_lake_model2_{epoch:03d}.h5', #“xinglina"改为自己名字全拼
     monitor='val_loss',
     verbose=1,
     save_best_only=True,
@@ -88,4 +98,5 @@ model.fit(
 )
 
 # 6、保存模型
-model.save('agajan_lake_model.h5')
+model.save('models/xinglina_lake_model2.h5')  #“xinglina"改为自己名字全拼
+
